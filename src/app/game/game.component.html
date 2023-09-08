@@ -1,7 +1,12 @@
 <div class="field">
+    <h1>Ring of Fire</h1>
 
     <div class="card-stack">
-        <img *ngFor="let c of [0, 1, 2, 3]; let i = index;" [ngStyle]="{'right.px': i * 5}" src="../../assets/img/cards/card_cover.png" alt="">
-        <img (click)="takeCard()" [class.pick-card]="pickCardAnimation" class="top-card" [ngStyle]="{'right.px': 25}" src="../../assets/img/cards/card_cover.png" alt="">
+        <img *ngFor="let c of [0, 1, 2, 3]; let i = index;" [ngStyle]="{'right.px': i * 5}"
+            src="../../assets/img/cards/card_cover.png" alt="">
+        <img (click)="takeCard()" class="top-card" style="right: 25px" src="../../assets/img/cards/card_cover.png"
+            alt="">
+        <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pick-card" style="right: 25px"
+            src="../../assets/img/cards/spade_1.png" alt="">
     </div>
 </div>
