@@ -1,0 +1,45 @@
+.start-screen {
+    background-color: #040303;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+
+    img {
+        height: 70vh;
+    }
+
+    h1 {
+        color: white;
+        font-family: cursive;
+        font-weight: 300;
+        position: absolute;
+        top: 37%;
+        left: 44%;
+        text-align: center;
+        font-size: 2.5rem;
+    }
+
+    button {
+        all: unset;
+        height: 50px;
+        background-color: black;
+        width: 100px;
+        border-radius: 9px;
+        border: 1px solid white;
+        position: absolute;
+        top: 80vh;
+        left: 47.5%;
+        color: white;
+        font-family: fantasy;
+        cursor: pointer;
+        padding-left: 22px;
+        box-sizing: border-box;
+
+        &:hover {
+            background-color: white;
+            color: black;
+        }
+    }
+}
