@@ -1,3 +1,8 @@
+.player-position {
+    position: absolute;
+    right: 0;
+}
+
 h1 {
     position: absolute;
     top: 50px;
@@ -28,7 +33,7 @@ h1 {
         position: absolute;
         height: 200px;
         cursor: pointer;
-        box-shadow: -12px 9px 15px 0px rgba(0,0,0,3.24);
+        box-shadow: -12px 9px 15px 0px rgba(0, 0, 0, 3.24);
 
     }
 }
@@ -49,16 +54,16 @@ h1 {
 @keyframes pick-card-animation {
     0% {
         transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
-        box-shadow: -7px 13px 15px 0px rgba(0,0,0,1.00);
+        box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 1.00);
     }
 
     50% {
         transform: scale(1.7) rotateZ(-2deg) translateY(-10px) translateX(-10px);
-        box-shadow: -7px 13px 15px 0px rgba(0,0,0,2.24);
+        box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 2.24);
     }
 
     100% {
         transform: scale(1.1) rotateZ(-2deg) translateX(-200px) translateY(-250px);
-        box-shadow: -7px 13px 15px 0px rgba(0,0,0,3.24);
+        box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 3.24);
     }
 }
