@@ -6,11 +6,12 @@ import { Game } from '../modules/game';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit{
+export class GameComponent implements OnInit {
   pickCardAnimation = false;
-  game: Game | undefined; //type Game
+  currentCard: string = '';
+  game: any; //type Game
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.newGame();
@@ -18,11 +19,17 @@ export class GameComponent implements OnInit{
 
   newGame() {
     this.game = new Game(); //variable bekommt ein neues Objekt ertsellt, von der game.ts datei
-    console.log(this.game);
-    
   }
 
   takeCard() {
-    this.pickCardAnimation = true;
+    if (!this.pickCardAnimation) {
+      this.currentCard = this.game.stack.pop(); // Hier verwenden wir "!" für den Non-null Assertion Operator
+      this.pickCardAnimation = true;
+      console.log(this.game);
+
+      setTimeout(() => {
+        this.pickCardAnimation = false;
+      }, 1500);
+    }
   }
 }
