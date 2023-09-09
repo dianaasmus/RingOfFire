@@ -1,7 +1,7 @@
 export class Game {
     public players: string[] = []; //get players from different files
     public stack: string[] = []; //get cards
-    public playedCard: string[] = [];
+    public playedCards: string[] = [];
     public curentPlayer: number = 0;
 
     constructor() {

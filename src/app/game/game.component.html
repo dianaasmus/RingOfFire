@@ -2,11 +2,20 @@
     <h1>Ring of Fire</h1>
 
     <div class="card-stack">
+        <!-- stack hidden cards -->
         <img *ngFor="let c of [0, 1, 2, 3]; let i = index;" [ngStyle]="{'right.px': i * 5}"
             src="../../assets/img/cards/card_cover.png" alt="">
         <img (click)="takeCard()" class="top-card" style="right: 25px" src="../../assets/img/cards/card_cover.png"
             alt="">
+
+
+        <!-- stack current card -->
         <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pick-card" style="right: 25px"
             src="../../assets/img/cards/{{ currentCard }}.png" alt="">
+
+
+        <!-- stack played card -->
+        <img *ngFor="let card of game.playedCards"  class="pick-card" style="right: 25px" src="../../assets/img/cards/{{ card }}.png"
+            alt="">
     </div>
 </div>

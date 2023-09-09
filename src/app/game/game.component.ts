@@ -25,11 +25,11 @@ export class GameComponent implements OnInit {
     if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop(); // Hier verwenden wir "!" für den Non-null Assertion Operator
       this.pickCardAnimation = true;
-      console.log(this.game);
+      this.game.playedCards.push(this.currentCard);
 
       setTimeout(() => {
         this.pickCardAnimation = false;
-      }, 1500);
+      }, 1000);
     }
   }
 }
