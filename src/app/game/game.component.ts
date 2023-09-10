@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from '../modules/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+import { AddPlayerWarningComponent } from '../add-player-warning/add-player-warning.component';
 
 @Component({
   selector: 'app-game',
@@ -11,7 +12,7 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
   currentCard: string = '';
-  game: any; //type Game
+  game: any;
 
   constructor(public dialog: MatDialog) { }
 
@@ -20,21 +21,35 @@ export class GameComponent implements OnInit {
   }
 
   newGame() {
-    this.game = new Game(); //variable bekommt ein neues Objekt ertsellt, von der game.ts datei
+    this.game = new Game();
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop(); // Hier verwenden wir "!" für den Non-null Assertion Operator
-      this.pickCardAnimation = true;
-      this.game.playedCards.push(this.currentCard);
+    if (this.noAnimationAndEnteredPlayers()) {
+      this.getRandomCard();
+      this.setCurrentPlayer();
 
-      this.game.currentPlayer++;
-      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
       setTimeout(() => {
         this.pickCardAnimation = false;
       }, 1000);
+    } else {
+      this.openWarningDialog();
     }
+  }
+
+  noAnimationAndEnteredPlayers() {
+    return !this.pickCardAnimation && this.game.players.length >= 2 && this.game.players.length <= 6;
+  }
+
+  getRandomCard() {
+    this.currentCard = this.game.stack.pop();
+    this.pickCardAnimation = true;
+    this.game.playedCards.push(this.currentCard);
+  }
+
+  setCurrentPlayer() {
+    this.game.currentPlayer++;
+    this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
   }
 
   openDialog(): void {
@@ -45,5 +60,9 @@ export class GameComponent implements OnInit {
         this.game.players.push(name);
       }
     });
+  }
+
+  openWarningDialog() {
+    const dialogRef = this.dialog.open(AddPlayerWarningComponent);
   }
 }
