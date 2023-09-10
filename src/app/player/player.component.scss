@@ -22,3 +22,34 @@
     width: 200px;
     background-color: #a16c4f;
 }
+
+@media (max-width: 740px) {
+
+    .player-container {
+        padding: 10px 25px 10px 10px;
+        width: 150px;
+    }
+
+    .player-active {
+        width: 180px;
+        background-color: #a16c4f;
+    }
+}
+
+@media (max-width: 630px) {
+
+    .player-container {
+        top: 15px;
+        padding: 10px 15px 10px 10px;
+        width: 130px;
+
+        img {
+            height: 35px;
+        }
+    }
+
+    .player-active {
+        width: 160px;
+        background-color: #a16c4f;
+    }
+}

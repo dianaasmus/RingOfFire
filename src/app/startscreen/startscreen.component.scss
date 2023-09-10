@@ -15,10 +15,12 @@
         font-family: cursive;
         font-weight: 300;
         position: absolute;
-        top: 40%;
-        left: 44%;
+        top: 42%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         text-align: center;
         font-size: 2.5rem;
+        width: 100%;
     }
 
     button {
@@ -35,10 +37,33 @@
             filter: invert(23%) sepia(91%) saturate(2167%) hue-rotate(356deg) brightness(69%) contrast(91%);
 
             &:hover {
-                // filter: invert(23%) sepia(91%) saturate(2167%) hue-rotate(356deg) brightness(69%) contrast(60%);
                 transition: all 125ms ease-in-out;
                 transform: scale(1.05);
             }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    
+    .start-screen {
+
+        img {
+            height: 77vw;
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    
+    .start-screen {
+
+        h1 {
+            top: 115vw;
+        }
+
+        img {
+            margin-top: 80px;
         }
     }
 }

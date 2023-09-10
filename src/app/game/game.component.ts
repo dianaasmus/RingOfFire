@@ -24,6 +24,16 @@ export class GameComponent implements OnInit {
     this.game = new Game();
   }
 
+  calculateTopStyle(index: number): { [key: string]: string } {
+    let playerTop = 100;
+    if (window.matchMedia("(max-width: 500px)").matches) {
+      playerTop = 70;
+    }
+    const topPosition = (index * playerTop) + 'px';
+
+    return { 'top': topPosition };
+  }
+
   takeCard() {
     if (this.noAnimationAndEnteredPlayers()) {
       this.getRandomCard();
@@ -38,7 +48,7 @@ export class GameComponent implements OnInit {
   }
 
   noAnimationAndEnteredPlayers() {
-    return !this.pickCardAnimation && this.game.players.length >= 2 && this.game.players.length <= 6;
+    return !this.pickCardAnimation && this.game.players.length >= 2;
   }
 
   getRandomCard() {
@@ -53,13 +63,15 @@ export class GameComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+    if (this.game.players.length <= 3) {
+      const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
-    dialogRef.afterClosed().subscribe((name: string) => {
-      if (name && name.length > 0) {
-        this.game.players.push(name);
-      }
-    });
+      dialogRef.afterClosed().subscribe((name: string) => {
+        if (name && name.length > 0) {
+          this.game.players.push(name);
+        }
+      });
+    }
   }
 
   openWarningDialog() {
