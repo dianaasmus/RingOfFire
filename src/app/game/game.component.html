@@ -7,19 +7,19 @@
     <div class="card-stack">
         <!-- hidden cards stack-->
         <img *ngFor="let c of [0, 1, 2, 3]; let i = index;" [ngStyle]="{'right.px': i * 5}"
-            src="../../assets/img/cards/card_cover.png" alt="">
-        <img (click)="takeCard()" class="top-card" style="right: 25px" src="../../assets/img/cards/card_cover.png"
+            src="assets/img/cards/card_cover.png" alt="">
+        <img (click)="takeCard()" class="top-card" style="right: 25px" src="assets/img/cards/card_cover.png"
             alt="">
 
 
         <!-- current card stack-->
         <img *ngIf="pickCardAnimation" class="pick-card" style="right: 25px"
-            src="../../assets/img/cards/{{ currentCard }}.png" alt="">
+            src="assets/img/cards/{{ currentCard }}.png" alt="">
 
 
         <!-- played card stack-->
         <img *ngFor="let card of game.playedCards" class="pick-card" style="right: 25px"
-            src="../../assets/img/cards/{{ card }}.png" alt="">
+            src="assets/img/cards/{{ card }}.png" alt="">
     </div>
 </div>
 
