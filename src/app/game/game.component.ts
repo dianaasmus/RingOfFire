@@ -3,6 +3,7 @@ import { Game } from '../modules/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { AddPlayerWarningComponent } from '../add-player-warning/add-player-warning.component';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-game',
@@ -14,10 +15,14 @@ export class GameComponent implements OnInit {
   currentCard: string = '';
   game: any;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private firestore: Firestore, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.newGame();
+    const aCollection = collectionData(collection(this.firestore, 'games'));
+    console.log(collection(this.firestore, 'games'));
+    
+    // this.items$ = collectionData(aCollection);
   }
 
   newGame() {
