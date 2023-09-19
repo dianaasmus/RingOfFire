@@ -30,7 +30,7 @@ export class GameComponent implements OnInit {
     });
 
 
-    addDoc(this.setGamesRef(), {game: 'hallo'});
+    addDoc(this.setGamesRef(), this.game.toJson());
 
   }
 
