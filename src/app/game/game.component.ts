@@ -3,7 +3,7 @@ import { Game } from '../modules/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { AddPlayerWarningComponent } from '../add-player-warning/add-player-warning.component';
-import { Firestore, onSnapshot, collection } from '@angular/fire/firestore';
+import { Firestore, onSnapshot, collection, addDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-game',
@@ -28,6 +28,9 @@ export class GameComponent implements OnInit {
         
       });
     });
+
+
+    addDoc(this.setGamesRef(), {game: 'hallo'});
 
   }
 
