@@ -3,7 +3,7 @@ import { Game } from '../modules/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { AddPlayerWarningComponent } from '../add-player-warning/add-player-warning.component';
-import { Firestore, onSnapshot, collection, addDoc, doc } from '@angular/fire/firestore';
+import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { docData } from 'rxfire/firestore';
 
@@ -17,42 +17,53 @@ export class GameComponent implements OnInit {
   currentCard: string = '';
   game: any;
   gameSubscription: any;
-
-  shot: any;
+  gameId: any;
+  gamesCollection: any;
+  gameDoc: any;
 
   constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.newGame();
+    this.subParams();
+  }
 
-    this.route.params.subscribe((params) => {
-      console.log(params["id"]);
-
-      //Sammlung aus Firebase Datenbank
+  async saveGame() {
+    if (this.gameId) {
       const gamesCollection = collection(this.firestore, 'games');
+      const gameDoc = doc(gamesCollection, this.gameId);
+      await updateDoc(gameDoc, this.game.toJson()).catch(
+        (err) => { console.error(err); }
+      );
+    }
+  }
 
-      //Verweis auf bestimmtes Firebase Dokument mit jeweiligen id
-      const gameDoc = doc(gamesCollection, params["id"]);
-
-      //Abonnieren des Dokuments
-      this.gameSubscription = onSnapshot(gameDoc, (gameSnapshot) => {
-
-        //Daten aus den Dokumenten, die man in Firebase einsehen kann
-        const gameData: any = gameSnapshot.data();
-
-        //gameSnapshot: Firestore Dokument Daten (allg Daten. z. B. Metadaten)
-        if (gameData) {
-
-          console.log('Spiel aktualisiert:', gameData);
-
-          //Daten aus dem Dokument laden:
-          this.game.currentPlayer = gameData.currentPlayer;
-          this.game.playedCards = gameData.playedCards;
-          this.game.players = gameData.players;
-          this.game.stack = gameData.stack;
-        }
-      });
+  subParams() {
+    this.route.params.subscribe((params) => {
+      this.gameId = params["id"];
+      this.subscribeToGameChanges();
     });
+  }
+
+  subscribeToGameChanges(): void {
+    const gamesCollection = collection(this.firestore, 'games');
+    const gameDoc = doc(gamesCollection, this.gameId);
+
+    this.gameSubscription = onSnapshot(gameDoc, this.handleGameSnapshot.bind(this));
+  }
+
+  handleGameSnapshot(gameSnapshot: any): void {
+    const gameData: any = gameSnapshot.data();
+    if (gameData) {
+      this.setGameData(gameData);
+    }
+  }
+
+  setGameData(gameData: any) {
+    this.game.currentPlayer = gameData.currentPlayer;
+    this.game.playedCards = gameData.playedCards;
+    this.game.players = gameData.players;
+    this.game.stack = gameData.stack;
   }
 
   ngOnDestroy(): void {
@@ -79,6 +90,7 @@ export class GameComponent implements OnInit {
     if (this.noAnimationAndEnteredPlayers()) {
       this.getRandomCard();
       this.setCurrentPlayer();
+      this.saveGame();
 
       setTimeout(() => {
         this.pickCardAnimation = false;
@@ -96,6 +108,7 @@ export class GameComponent implements OnInit {
     this.currentCard = this.game.stack.pop();
     this.pickCardAnimation = true;
     this.game.playedCards.push(this.currentCard);
+    this.saveGame();
   }
 
   setCurrentPlayer() {
@@ -110,6 +123,7 @@ export class GameComponent implements OnInit {
       dialogRef.afterClosed().subscribe((name: string) => {
         if (name && name.length > 0) {
           this.game.players.push(name);
+          this.saveGame();
         }
       });
     }
