@@ -3,7 +3,9 @@ import { Game } from '../modules/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { AddPlayerWarningComponent } from '../add-player-warning/add-player-warning.component';
-import { Firestore, onSnapshot, collection, addDoc } from '@angular/fire/firestore';
+import { Firestore, onSnapshot, collection, addDoc, doc } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { docData } from 'rxfire/firestore';
 
 @Component({
   selector: 'app-game',
@@ -14,34 +16,52 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;
   currentCard: string = '';
   game: any;
+  gameSubscription: any;
 
   shot: any;
 
-  constructor(private firestore: Firestore, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.newGame();
-    
-    this.shot = onSnapshot(this.setGamesRef(), (list) => {
-      list.forEach(element => {
-        console.log(element.data());
-        
+
+    this.route.params.subscribe((params) => {
+      console.log(params["id"]);
+
+      //Sammlung aus Firebase Datenbank
+      const gamesCollection = collection(this.firestore, 'games');
+
+      //Verweis auf bestimmtes Firebase Dokument mit jeweiligen id
+      const gameDoc = doc(gamesCollection, params["id"]);
+
+      //Abonnieren des Dokuments
+      this.gameSubscription = onSnapshot(gameDoc, (gameSnapshot) => {
+
+        //Daten aus den Dokumenten, die man in Firebase einsehen kann
+        const gameData: any = gameSnapshot.data();
+
+        //gameSnapshot: Firestore Dokument Daten (allg Daten. z. B. Metadaten)
+        if (gameData) {
+
+          console.log('Spiel aktualisiert:', gameData);
+
+          //Daten aus dem Dokument laden:
+          this.game.currentPlayer = gameData.currentPlayer;
+          this.game.playedCards = gameData.playedCards;
+          this.game.players = gameData.players;
+          this.game.stack = gameData.stack;
+        }
       });
     });
-
-
-    addDoc(this.setGamesRef(), this.game.toJson());
-
   }
 
-  setGamesRef() {
-    return collection(this.firestore, 'games')
-  }
 
-  ngOnDestroy() {
-    this.shot();
+  // Stelle sicher, dass du das Abonnement bei Bedarf trennst (z. B. im ngOnDestroy).
+  ngOnDestroy(): void {
+    if (this.gameSubscription) {
+      this.gameSubscription();
+    }
   }
-
 
   newGame() {
     this.game = new Game();
