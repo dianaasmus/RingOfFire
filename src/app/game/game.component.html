@@ -13,8 +13,8 @@
 
 
         <!-- current card stack-->
-        <img *ngIf="pickCardAnimation" class="pick-card" style="right: 25px"
-            src="assets/img/cards/{{ currentCard }}.png" alt="">
+        <img *ngIf="game.pickCardAnimation" class="pick-card" style="right: 25px"
+            src="assets/img/cards/{{ game.currentCard }}.png" alt="">
 
 
         <!-- played card stack-->
@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<app-game-info [card]="currentCard" class="game-info"></app-game-info>
+<app-game-info [card]="game.currentCard" class="game-info"></app-game-info>
 
 <button (click)="openDialog()" mat-fab color="primary" class="add-btn">
     <mat-icon>add</mat-icon>

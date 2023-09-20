@@ -13,13 +13,9 @@ import { docData } from 'rxfire/firestore';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  pickCardAnimation = false;
-  currentCard: string = '';
   game: any;
   gameSubscription: any;
   gameId: any;
-  gamesCollection: any;
-  gameDoc: any;
 
   constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
 
@@ -64,6 +60,8 @@ export class GameComponent implements OnInit {
     this.game.playedCards = gameData.playedCards;
     this.game.players = gameData.players;
     this.game.stack = gameData.stack;
+    this.game.pickCardAnimation = gameData.pickCardAnimation;
+    this.game.currentCard = gameData.currentCard
   }
 
   ngOnDestroy(): void {
@@ -93,7 +91,7 @@ export class GameComponent implements OnInit {
       this.saveGame();
 
       setTimeout(() => {
-        this.pickCardAnimation = false;
+        this.game.pickCardAnimation = false;
       }, 1000);
     } else {
       this.openWarningDialog();
@@ -101,13 +99,13 @@ export class GameComponent implements OnInit {
   }
 
   noAnimationAndEnteredPlayers() {
-    return !this.pickCardAnimation && this.game.players.length >= 2;
+    return !this.game.pickCardAnimation && this.game.players.length >= 2;
   }
 
   getRandomCard() {
-    this.currentCard = this.game.stack.pop();
-    this.pickCardAnimation = true;
-    this.game.playedCards.push(this.currentCard);
+    this.game.currentCard = this.game.stack.pop();
+    this.game.pickCardAnimation = true;
+    this.game.playedCards.push(this.game.currentCard);
     this.saveGame();
   }
 
