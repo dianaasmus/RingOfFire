@@ -55,8 +55,6 @@ export class GameComponent implements OnInit {
     });
   }
 
-
-  // Stelle sicher, dass du das Abonnement bei Bedarf trennst (z. B. im ngOnDestroy).
   ngOnDestroy(): void {
     if (this.gameSubscription) {
       this.gameSubscription();
