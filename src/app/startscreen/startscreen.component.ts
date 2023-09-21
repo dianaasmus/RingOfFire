@@ -23,18 +23,18 @@ export class StartscreenComponent implements OnInit {
 
     let newGameCollection = collection(this.firestore, 'games');
 
+
     //game als json in Datenbank hinzufügen
     await addDoc(newGameCollection, game.toJson())
-    // .catch(
-    //   (err) => {
-    //     console.error(err);
-    //   })
+
       .then((gameInfo: any) => {
-        console.log(gameInfo.id);
+        console.log(gameInfo);
+
         this.router.navigateByUrl('game/' + gameInfo.id);
 
-      });
-
+      }).catch(
+        (err) => {
+          console.error(err);
+        });
   }
-
 }

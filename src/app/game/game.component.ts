@@ -5,7 +5,6 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 import { AddPlayerWarningComponent } from '../add-player-warning/add-player-warning.component';
 import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { docData } from 'rxfire/firestore';
 
 @Component({
   selector: 'app-game',
