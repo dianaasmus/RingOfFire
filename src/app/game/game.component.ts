@@ -3,7 +3,7 @@ import { Game } from '../modules/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { AddPlayerWarningComponent } from '../add-player-warning/add-player-warning.component';
-import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, onSnapshot, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -73,16 +73,6 @@ export class GameComponent implements OnInit {
     this.game = new Game();
   }
 
-  calculateTopStyle(index: number): { [key: string]: string } {
-    let playerTop = 100;
-    if (window.matchMedia("(max-width: 500px)").matches) {
-      playerTop = 70;
-    }
-    const topPosition = (index * playerTop) + 'px';
-
-    return { 'top': topPosition };
-  }
-
   takeCard() {
     if (this.noAnimationAndEnteredPlayers()) {
       this.getRandomCard();
@@ -114,15 +104,29 @@ export class GameComponent implements OnInit {
   }
 
   openDialog(): void {
-    if (this.game.players.length <= 3) {
-      const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+    if (this.game.players.length <= 10) {
+      this.showCardAndSaveGame();
+    } else {
+      this.disableBtn();
+    }
+  }
 
-      dialogRef.afterClosed().subscribe((name: string) => {
-        if (name && name.length > 0) {
-          this.game.players.push(name);
-          this.saveGame();
-        }
-      });
+  showCardAndSaveGame() {
+    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+
+    dialogRef.afterClosed().subscribe((name: string) => {
+      if (name && name.length > 0) {
+        this.game.players.push(name);
+        this.saveGame();
+      }
+    });
+  }
+
+  disableBtn() {
+    const addBtn = document.querySelector('.add-btn') as HTMLButtonElement;
+
+    if (addBtn) {
+      addBtn.disabled = true;
     }
   }
 

@@ -1,0 +1,35 @@
+.player-container {
+    top: 0;
+    padding: 10px 40px 10px 10px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    background-color: #9e7e6d;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: -7px 0px 15px 0px rgb(0, 0, 0);
+    height: 80px;
+    width: 50px;
+
+    img {
+        height: 45px;
+        width: 45px;
+        border-radius: 100%;
+    }
+}
+
+.player-active {
+    background-color: #a16c4f;
+    height: 95px;
+}
+
+@media (max-width: 630px) {
+
+    .player-container {
+        padding: 10px 15px 10px 10px;
+
+        img {
+            height: 35px;
+        }
+    }
+}

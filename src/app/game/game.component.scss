@@ -1,166 +1,193 @@
-    .player-position {
+.player-position {
+    position: absolute;
+    right: 0;
+}
+
+h1 {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-family: cursive;
+    color: white;
+    text-shadow: -7px 5px 9px #000000;
+}
+
+.field {
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    background-image: url(../../assets/img/field.jpg);
+    background-size: cover;
+}
+
+.card-stack {
+    position: relative;
+    top: 45%;
+    left: 9%;
+    transform: translate(-50%, -50%);
+
+    img {
         position: absolute;
-        right: 0;
+        height: 200px;
+        cursor: pointer;
+        box-shadow: -12px 9px 15px 0px rgba(0, 0, 0, 3.24);
     }
+}
+
+.top-card {
+    transition: all 125ms ease-in-out;
+
+    &:hover {
+        transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
+    }
+}
+
+.game-info {
+    position: absolute;
+    bottom: 50px;
+    left: 20%;
+    right: 20%;
+    color: #000000;
+
+    @media (max-width: 720px) {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+.add-btn {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    background-color: #a16c4f;
+}
+
+.mobile-player-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    overflow: scroll;
+    gap: 10px;
+}
+
+@media (min-width: 1000px) {
+
+    .pick-card {
+        animation: pick-card-animation 1000ms ease-in-out;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes pick-card-animation {
+        0% {
+            transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 1.00);
+        }
+
+        50% {
+            transform: scale(1.7) rotateZ(-2deg) translateY(-10px) translateX(-10px);
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 2.24);
+        }
+
+        100% {
+            transform: scale(1.1) rotateZ(-2deg) translateX(-300px) translateY(-200px);
+
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 3.24);
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .pick-card {
+        animation: pick-card-animation 1000ms ease-in-out;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes pick-card-animation {
+        0% {
+            transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 1.00);
+        }
+
+        50% {
+            transform: scale(1.7) rotateZ(-2deg) translateY(-10px) translateX(-10px);
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 2.24);
+        }
+
+        100% {
+            transform: scale(1.1) rotateZ(-2deg) translateX(-200px) translateY(-200px);
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 3.24);
+        }
+    }
+}
+
+@media (max-width: 740px) {
+    .pick-card {
+        animation: pick-card-animation 1000ms ease-in-out !important;
+        animation-fill-mode: forwards !important;
+    }
+
+    @keyframes pick-card-animation {
+        0% {
+            transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 1.00);
+        }
+
+        50% {
+            transform: scale(1.7) rotateZ(-2deg) translateY(-10px) translateX(-10px);
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 2.24);
+        }
+
+        100% {
+            transform: scale(1.1) rotateZ(-2deg) translateX(-150px) translateY(-100px);
+            box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 3.24);
+        }
+    }
+}
+
+@media (max-width: 740px) {
 
     h1 {
-        position: absolute;
-        top: 50px;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 3rem;
-        font-family: cursive;
-        color: white;
-        text-shadow: -7px 5px 9px #000000;
+        display: none;
     }
 
-    .field {
-        height: 100vh;
-        width: 100vw;
-        max-width: 100%;
-        background-image: url(../../assets/img/field.jpg);
-        background-size: cover;
+    .hide-mobile {
+        display: none;
     }
+
+    .player-position {
+        left: 0;
+        right: unset ;
+    }
+}
+
+@media (max-width: 700px) {
 
     .card-stack {
         position: relative;
-        top: 45%;
-        left: 9%;
+        top: 48%;
+        left: 45%;
         transform: translate(-50%, -50%);
 
-
         img {
-            position: absolute;
-            height: 200px;
-            cursor: pointer;
-            box-shadow: -12px 9px 15px 0px rgba(0, 0, 0, 3.24);
+            height: 170px;
         }
-    }
-
-    .top-card {
-        transition: all 125ms ease-in-out;
-
-        &:hover {
-            transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
-        }
-    }
-
-    .game-info {
-        position: absolute;
-        bottom: 50px;
-        left: 20%;
-        right: 20%;
-        color: #000000;
     }
 
     .add-btn {
-        position: absolute;
-        bottom: 50px;
-        right: 50px;
-        background-color: #a16c4f;
+        right: 10px;
+        bottom: 20px;
     }
+}
 
-    @media (min-width: 1000px) {
-
-        .pick-card {
-            animation: pick-card-animation 1000ms ease-in-out;
-            animation-fill-mode: forwards;
-        }
-
-        @keyframes pick-card-animation {
-            0% {
-                transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 1.00);
-            }
-
-            50% {
-                transform: scale(1.7) rotateZ(-2deg) translateY(-10px) translateX(-10px);
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 2.24);
-            }
-
-            100% {
-                transform: scale(1.1) rotateZ(-2deg) translateX(-300px) translateY(-200px);
-
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 3.24);
-            }
-        }
+@media (min-width: 740px) {
+    
+    .hide-desktop {
+        display: none;
     }
-
-    @media (max-width: 1000px) {
-        .pick-card {
-            animation: pick-card-animation 1000ms ease-in-out;
-            animation-fill-mode: forwards;
-        }
-
-        @keyframes pick-card-animation {
-            0% {
-                transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 1.00);
-            }
-
-            50% {
-                transform: scale(1.7) rotateZ(-2deg) translateY(-10px) translateX(-10px);
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 2.24);
-            }
-
-            100% {
-                transform: scale(1.1) rotateZ(-2deg) translateX(-200px) translateY(-200px);
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 3.24);
-            }
-        }
-    }
-
-    @media (max-width: 740px) {
-        .pick-card {
-            animation: pick-card-animation 1000ms ease-in-out !important;
-            animation-fill-mode: forwards !important;
-        }
-
-        @keyframes pick-card-animation {
-            0% {
-                transform: scale(1.1) rotateZ(-4deg) translateY(-10px) translateX(-10px);
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 1.00);
-            }
-
-            50% {
-                transform: scale(1.7) rotateZ(-2deg) translateY(-10px) translateX(-10px);
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 2.24);
-            }
-
-            100% {
-                transform: scale(1.1) rotateZ(-2deg) translateX(-150px) translateY(-200px);
-                box-shadow: -7px 13px 15px 0px rgba(0, 0, 0, 3.24);
-            }
-        }
-    }
-
-    @media (max-width: 740px) {
-
-        h1 {
-            display: none;
-        }
-    }
-
-    @media (max-width: 700px) {
-
-        .card-stack {
-            position: relative;
-            top: 48%;
-            left: 45%;
-            transform: translate(-50%, -50%);
-
-            img {
-                height: 170px;
-            }
-        }
-
-        .add-btn {
-            right: 10px;
-            bottom: 20px;
-        }
-
-        .game-info {
-            bottom: 25px;
-            left: 10%;
-        }
-    }
+}
